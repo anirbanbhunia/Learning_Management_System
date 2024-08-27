@@ -50,6 +50,10 @@ const userSchema = new mongoose.Schema({
     },
     forgotPasswordTokenEpiry:{
         type: Date
+    },
+    subscription:{
+        id: String,
+        status: String
     }
 },{
     timestamps: true

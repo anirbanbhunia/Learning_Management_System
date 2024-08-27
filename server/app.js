@@ -7,6 +7,7 @@ import dbConnection from "./config/dbConnection.js"
 import userRoutes from "./routes/userRoutes.js"
 import errorMiddleware from "./middleware/errorMiddleware.js"
 import courseRouter from "./routes/courseRoutes.js"
+import paymentRoutes from "./routes/paymentRoutes.js"
 
 config()
 const app = express()
@@ -31,6 +32,8 @@ app.use("/ping",(req,res) => {
 app.use("/api/v1/user",userRoutes)
 //2. course routes
 app.use("/api/v1/courses",courseRouter)
+//3. payment routes
+app.use("/api/v1/payments",paymentRoutes)
 
 //if any other url hit then show an error
 //"*": The asterisk (*) is a wildcard character that matches any route. It means that this handler will be executed for any route that hasn’t been matched by previous route handlers.
