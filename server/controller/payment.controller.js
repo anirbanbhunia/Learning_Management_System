@@ -22,7 +22,7 @@ const buySubscription = async(req,res,next) => {
         const user = await userModel.findById(id)
 
         if(!user){
-            return next(new AppError('Unauthorized, please login'))
+            return next(new AppError('Unauthorized, please login',400))
         }
 
         if(user.role === "ADMIN"){
