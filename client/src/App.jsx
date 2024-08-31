@@ -1,11 +1,12 @@
 import './App.css'
+import Footer from './components/Footer'
 
 function App() {
 
   return (
-    <h1>
-      lms
-    </h1>
+    <>
+      <Footer/>
+    </>
   )
 } 
 
