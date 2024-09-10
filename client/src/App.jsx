@@ -9,6 +9,8 @@ import CourseList from './Pages/Course/CourseList'
 import Contact from './Pages/Contact'
 import Denied from './Pages/Denied'
 import CourseDescription from './Pages/Course/CourseDescription'
+import RecureAuth from './components/Auth/RecureAuth'
+import CreateCourse from './Pages/Course/CreateCourse'
 
 
 function App() {
@@ -22,6 +24,11 @@ function App() {
         <Route path='/about' element={<AboutUs/>}/>
         <Route path='/denied' element={<Denied/>}/>
         <Route path='/course/description' element={<CourseDescription/>}/>
+
+        <Route element={<RecureAuth allowedRole={["ADMIN"]}/>}>
+          <Route path='/course/create' element={<CreateCourse/>}/>
+        </Route>
+
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='*' element={<NotFound/>}/>
