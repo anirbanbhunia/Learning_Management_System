@@ -11,6 +11,7 @@ import Denied from './Pages/Denied'
 import CourseDescription from './Pages/Course/CourseDescription'
 import RecureAuth from './components/Auth/RecureAuth'
 import CreateCourse from './Pages/Course/CreateCourse'
+import UserProfile from './Pages/User/UserProfile'
 
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
 
         <Route element={<RecureAuth allowedRole={["ADMIN"]}/>}>
           <Route path='/course/create' element={<CreateCourse/>}/>
+        </Route>
+
+        <Route element={<RecureAuth allowedRole={["ADMIN","USER"]}/>}>
+          <Route path='/user/profile' element={<UserProfile/>}/>
         </Route>
 
         <Route path='/signup' element={<SignUp/>}/>
