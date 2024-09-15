@@ -50,6 +50,14 @@ function CreateCourse() {
           toast.error("All fields are mandatory")
           return
       }
+      if(userInput.title.length < 8){
+        toast.error("Title cannot be less than 8 characters")
+        return
+      }
+      if(userInput.description.length < 8){
+        toast.error("Description cannot be less than 8 characters")
+        return
+      }
 
       const res = await dispatch(createCourseThunk(userInput))
       if(res?.payload?.success){

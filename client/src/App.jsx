@@ -12,6 +12,7 @@ import CourseDescription from './Pages/Course/CourseDescription'
 import RecureAuth from './components/Auth/RecureAuth'
 import CreateCourse from './Pages/Course/CreateCourse'
 import UserProfile from './Pages/User/UserProfile'
+import EditProfile from './Pages/User/EditProfile'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 
         <Route element={<RecureAuth allowedRole={["ADMIN","USER"]}/>}>
           <Route path='/user/profile' element={<UserProfile/>}/>
+          <Route path='/user/editprofile' element={<EditProfile/>}/>
         </Route>
 
         <Route path='/signup' element={<SignUp/>}/>

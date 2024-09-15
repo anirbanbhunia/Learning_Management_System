@@ -12,6 +12,6 @@ routes.get("/me",jwtAuth,getProfile)
 routes.post("/forgot-password",forgotPassword)
 routes.post("/reset/:resetToken",resetPassword)
 routes.post("/change-password",jwtAuth,changePassword)
-routes.put("/updateuser",jwtAuth,upload.single("avatar"),updateUser)
+routes.put("/updateuser/:id",jwtAuth,upload.single("avatar"),updateUser)
 
 export default routes
