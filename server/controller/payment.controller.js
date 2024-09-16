@@ -1,4 +1,5 @@
 import { razorpay } from "../index.js"
+import asyncHandler from "../middleware/asyncHandlerMiddleware.js"
 import paymentModel from "../models/payment.model.js"
 import userModel from "../models/userModel.js"
 import AppError from "../utils/error.util.js"
@@ -116,23 +117,75 @@ const cancelSubscription = async(req,res,next) => {
    }
 }
 
-const allPayments = async(req,res,next) => { 
+const allPayments = asyncHandler(async(req,res,next) => { 
     try{
-        const {count} = req.query
+        const {count,skip} = req.query
 
         const subscriptions = await razorpay.subscriptions.all({
-            count: count || 10
+            count: count || 10,
+            skip: skip || 0
+        })
+
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+          ];
+
+          const finalMonths = {
+            January: 0,
+            February: 0,
+            March: 0,
+            April: 0,
+            May: 0,
+            June: 0,
+            July: 0,
+            August: 0,
+            September: 0,
+            October: 0,
+            November: 0,
+            December: 0,
+          };
+
+          const monthlyWisePayments = subscriptions.items.map((payment) => {
+            const montsInNumbers = new Date(payment.start_at * 1000)
+            return monthNames[montsInNumbers.getMonth()]
+          })
+
+          monthlyWisePayments.map((month) => {
+            Object.keys(finalMonths).forEach((objMonth) => {
+                if(objMonth === month){
+                    finalMonths[month] += 1
+                }
+            })
+          }) 
+
+        const monthlySalesRecord = [];
+
+        Object.keys(finalMonths).forEach((month) => {
+            monthlySalesRecord.push(finalMonths[month])
         })
 
         res.status(200).json({
             success: true,
             message: "All payments",
-            subscriptions
+            subscriptions,
+            finalMonths,
+            monthlySalesRecord
         })
     }catch(err){
         return next(new AppError(err.message,400))
     }
-}
+})
 
 export {
     getRazorpayApiKey,

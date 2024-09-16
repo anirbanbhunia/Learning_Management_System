@@ -3,7 +3,7 @@ import toast from "react-hot-toast"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { createCourseThunk } from "../../Redux/Slices/CourseSlice"
-import Homelayout from "../../Layouts/Homelayout"
+import Homelayout from "../../Layouts/Homelayout.jsx"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 
 function CreateCourse() {

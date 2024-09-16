@@ -5,7 +5,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import HomeLayout from "../../Layouts/HomeLayout";
+import Homelayout from "../../Layouts/Homelayout";
 import { getUserData, updateProfile } from "../../Redux/Slices/Authslice";
 
 function EditProfile() {
@@ -66,7 +66,7 @@ function EditProfile() {
     }
 
     return (
-        <HomeLayout>
+        <Homelayout>
             <div className="flex items-center justify-center h-[100vh]">
                 <form
                     onSubmit={onFormSubmit}
@@ -117,7 +117,7 @@ function EditProfile() {
                     </Link>
                 </form>
             </div>
-        </HomeLayout>
+        </Homelayout>
     );
 }
 
