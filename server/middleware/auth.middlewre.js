@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken"
 const jwtAuth = async(req,res,next) => {
     const token = (req.cookies && req.cookies.token) || null
 
-    //console.log("jwt token is:-" ,token)
     if(!token){
         return next(new AppError("Not authorized",401))
     }

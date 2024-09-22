@@ -13,6 +13,8 @@ import RecureAuth from './components/Auth/RecureAuth'
 import CreateCourse from './Pages/Course/CreateCourse'
 import UserProfile from './Pages/User/UserProfile'
 import EditProfile from './Pages/User/EditProfile'
+import CheckOut from './Pages/Payment/CheckOut.jsx'
+import CheckoutSuccess from './Pages/Payment/CheckoutSuccess.jsx'
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
         <Route element={<RecureAuth allowedRole={["ADMIN","USER"]}/>}>
           <Route path='/user/profile' element={<UserProfile/>}/>
           <Route path='/user/editprofile' element={<EditProfile/>}/>
+          <Route path='/checkout' element={<CheckOut/>}/>
+          <Route path='/checkout/success' element={<CheckoutSuccess/>}/>
         </Route>
 
         <Route path='/signup' element={<SignUp/>}/>

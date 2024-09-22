@@ -8,7 +8,7 @@ import crypto from "crypto"
 const cookieOption = {
     maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
     httpOnly: true,
-    secure: true //cookie is set with secure: true, the cookie will only be sent over HTTPS.
+    //secure: true //cookie is set with secure: true, the cookie will only be sent over HTTPS.
 }
 
 const register = async(req,res,next) => {
@@ -51,7 +51,7 @@ const register = async(req,res,next) => {
                 gravity: 'faces',
                 crop: 'fill',
             })
-            console.log("Result is =>",result)
+            //console.log("Result is =>",result)
             if(result){
                 user.avatar.public_id = result.public_id,
                 user.avatar.secure_url = result.secure_url

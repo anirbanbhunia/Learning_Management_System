@@ -36,6 +36,7 @@ export const verifyUserPayment = createAsyncThunk("/payment/verify", async(data)
             razorpay_signature: data.razorpay_signature,
             razorpay_subscription_id: data.razorpay_subscription_id
         })
+        //console.log("this is resdata => ", res.data)
         return res.data
     }catch(err){
         toast.error(err?.response?.data?.message)

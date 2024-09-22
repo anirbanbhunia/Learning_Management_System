@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Homelayout from "../../Layouts/Homelayout"
 import { useSelector } from "react-redux"
 
@@ -6,6 +6,7 @@ function CourseDescription() {
 
     const {state} = useLocation()
     const {role,data} = useSelector((state) => state.auth)
+    const navigate = useNavigate()
     
   return (
     <Homelayout>
@@ -39,7 +40,9 @@ function CourseDescription() {
                                 Watch lectures
                             </button>
                         ):(
-                            <button className="bg-yellow-600 text-xl rounded-md fond-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all ease-in-out duration-300">
+                            <button
+                             onClick={() => navigate("/checkout")}
+                             className="bg-yellow-600 text-xl rounded-md fond-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all ease-in-out duration-300">
                                 Subscribe
                             </button>
                         )}
