@@ -6,6 +6,7 @@ function CourseDescription() {
 
     const {state} = useLocation()
     const {role,data} = useSelector((state) => state.auth)
+    //const paymentData = useSelector((state) => state?.razorpay)
     const navigate = useNavigate()
     
   return (

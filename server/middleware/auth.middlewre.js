@@ -1,8 +1,9 @@
 import AppError from "../utils/error.util.js"
 import jwt from "jsonwebtoken"
+import asyncHandler from "./asyncHandlerMiddleware.js"
 
 
-const jwtAuth = async(req,res,next) => {
+const jwtAuth = asyncHandler( async(req,res,next) => {
     const token = (req.cookies && req.cookies.token) || null
 
     if(!token){
@@ -16,6 +17,6 @@ const jwtAuth = async(req,res,next) => {
         return next(new AppError(err.message,500))
     }
     next()
-}
+})
 
 export default jwtAuth

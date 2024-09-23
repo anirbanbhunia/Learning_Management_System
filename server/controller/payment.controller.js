@@ -86,44 +86,49 @@ const verifySubscription = async(req,res,next) => {
         })
 
         user.subscription.status = "active"
-        await user.save()
+        const e = await user.save()
 
         res.status(200).json({
             success: true,
-            message: "Payment verified successfully!"
+            message: "Payment verified successfully!",
         })
     }catch(err){
         return next(new AppError(err.message,400))
     }
 }
 
-const cancelSubscription = async(req,res,next) => {
-   try{
-    const {id} = req.user
-
-    const user = await userModel.findById(id)
-
-    if(!user){
-        return next(new AppError('Unauthorized, please login'))
-    }
-
-    if(user.role === "ADMIN"){
-        return next(new AppError("Admin cannot cancel a subscription",400))
-    }
-
-    const subscriptionId = user.subscription.id
-
-    const subscription = razorpay.subscriptions.cancel(
-        subscriptionId
-    )
-
-    user.subscription.status = subscription.status
-
+const cancelSubscription = asyncHandler(async(req,res,next) => {
+    try{
+     const {id} = req.user
+ 
+     const user = await userModel.findById(id)
+ 
+     if(!user){
+         return next(new AppError('Unauthorized, please login'))
+     }
+ 
+     if(user.role === "ADMIN"){
+         return next(new AppError("Admin cannot cancel a subscription",400))
+     }
+ 
+     const subscriptionId = user.subscription.id
+ 
+     const subscription = await razorpay.subscriptions.cancel(
+         subscriptionId
+     )
+ 
+     user.subscription.status = subscription.status
+ 
     await user.save()
-   }catch(err){
-        return next(new AppError(err.message,400))
-   }
-}
+    // console.log("cancel sub data => ",e)
+     return res.status(200).json({
+        success: true,
+        message: "Subscription cancelled successfully"
+     })
+    }catch(err){
+         return next(new AppError(err.message,400))
+    }
+ })
 
 const allPayments = asyncHandler(async(req,res,next) => { 
     try{

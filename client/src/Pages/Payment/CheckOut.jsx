@@ -11,8 +11,6 @@ function CheckOut() {
   const navigate = useNavigate()
   const razorpayKey = useSelector((state) => state?.razorpay?.key)
   const subscription_id = useSelector((state) => state?.razorpay?.subscription_id)
-  const isPaymentVerified = useSelector((state) => state?.razorpay?.isPaymentVerified)
-  const userData = useSelector((state) => state?.auth?.data)
 
   const paymentDetails = {
       razorpay_payment_id: "",
@@ -34,11 +32,6 @@ function CheckOut() {
         theme:{
           color: "#F37254"
         },
-        prefill:{
-          email: userData.email,
-          name: userData.fullName
-        }
-        ,
         handler: async function (res) {
           paymentDetails.razorpay_payment_id = res.razorpay_payment_id
           paymentDetails.razorpay_signature = res.razorpay_signature

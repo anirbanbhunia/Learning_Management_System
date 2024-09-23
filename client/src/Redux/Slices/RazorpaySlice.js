@@ -5,7 +5,7 @@ import axiosInstance from "../../Helpers/axiosinstance"
 const initialState = {
     key:"",
     subscription_id:"",
-    isPaymentVerified: false,
+    isPaymentVerified: localStorage.getItem("verified") === undefined ? false : localStorage.getItem("verified"),
     allPayments: {},
     finalMonths: {},
     monthlySalesRecord: []
@@ -23,6 +23,7 @@ export const getRazorpayKey = createAsyncThunk("/razorpay/getKey",async() => {
 export const purchaseCourseBundle = createAsyncThunk("/purchaseCourse",async() => {
     try{
         const res = await axiosInstance.post("/payments/subscribe")
+        //console.log("this is resdata => ", res.data)
         return res.data
     }catch(err){
         toast.error(err?.response?.data?.message)
@@ -59,14 +60,14 @@ export const getPaymentsRecord = createAsyncThunk("/payments/record", async() =>
     }
 })
 
-export const cancelCourseBundle = createAsyncThunk("/payments/cancel",async() => {
+export const cancelCourseBundle = createAsyncThunk("/cancelCourse",async() => {
     try{
-        const res = axiosInstance.post("/payments//unsubscription")
+        //console.log("Cancellation initiated");
+        const res = axiosInstance.post("/payments/unsubscription")
+        //console.log("this is response",res)
         toast.promise(res,{
-            loading: "Unsubscribing the bundle",
-            success: (data) => {
-                return data?.data?.message
-            },
+            loading: "Unsubscribing the bundle...",
+            success: "Bundle unsubscibed successfully",
             error: "Failed to unsubscribe"
         })
         return (await res).data
@@ -90,6 +91,7 @@ const razorpaySlice = createSlice({
         .addCase(verifyUserPayment.fulfilled,(state,action) => {
             toast.success(action?.payload?.message)
             state.isPaymentVerified = action?.payload?.success
+            localStorage.setItem("verified",JSON.stringify(action?.payload?.success))
         })
         .addCase(verifyUserPayment.rejected,(state,action) => {
             toast.success(action?.payload?.message)
@@ -101,10 +103,10 @@ const razorpaySlice = createSlice({
             state.monthlySalesRecord = action?.payload?.monthlySalesRecord
         })
         //add for testing...
-        .addCase(cancelCourseBundle.fulfilled, (state, action) => {
-            state.subscription_id = ""; // Clear the subscription ID
-            toast.success(action?.payload?.message || "Subscription canceled successfully");
-        })
+        // .addCase(cancelCourseBundle.fulfilled, (state, action) => {
+        //     state.subscription_id = ""; // Clear the subscription ID
+        //     toast.success(action?.payload?.message || "Subscription canceled successfully");
+        // })
     }
 })
 

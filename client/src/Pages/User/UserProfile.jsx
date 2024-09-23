@@ -1,10 +1,31 @@
 import { useDispatch, useSelector } from "react-redux"
 import Homelayout from "../../Layouts/Homelayout"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { cancelCourseBundle } from "../../Redux/Slices/RazorpaySlice"
+import { getUserData } from "../../Redux/Slices/Authslice"
+import toast from "react-hot-toast"
+import { useEffect } from "react"
 
 function UserProfile() {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state?.auth?.data)
+    //const paymentData = useSelector((state) => state?.razorpay)
+    const navigate = useNavigate()
+
+    //console.log("this is user data",userData)
+    //console.log("this is payment data",paymentData)
+
+    async function handleCancellation() {
+        await dispatch(cancelCourseBundle())
+        await dispatch(getUserData())
+
+        toast.success("Cancellation completed")
+        navigate("/")
+    }
+    useEffect(() => {
+        // getting user details
+        dispatch(getUserData());
+      }, []);
   return (
     <Homelayout>
         <div className="min-h-[90vh] flex items-center justify-center">
@@ -20,7 +41,7 @@ function UserProfile() {
                     <p>Email: </p><p>{userData?.email}</p>
                     <p>Role: </p><p>{userData?.role}</p>
                     <p>Subscripton: </p>
-                    <p>{userData?.subscripton?.status === "active"? "Active":"Inactive"}</p>
+                    <p>{userData?.subscription?.status === "active"? "Active":"Inactive"}</p>
                 </div>
                 <div className="flex items-center justify-between gap-2">
                     <Link 
@@ -42,9 +63,9 @@ function UserProfile() {
                     </Link>
                 </div>
                 {
-                    userData?.subscripton?.status === "active" &&(
-                        <button className="bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">
-                            Cancel subscripton
+                    userData?.subscription?.status === "active" && (
+                        <button onClick={handleCancellation} className="bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">
+                            Cancel subscription
                         </button>
                     )
                 }
