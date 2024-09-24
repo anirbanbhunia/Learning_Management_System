@@ -68,7 +68,7 @@ const register = async(req,res,next) => {
     user.password = undefined
 
     const token = await user.jwtTokenGenarator()
-    console.log("token is => ", token)
+    //console.log("token is => ", token)
 
     res.cookie("token",token,cookieOption)
 
@@ -245,7 +245,7 @@ const updateUser = async(req,res,next) => {
                 gravity: 'faces',
                 crop: 'fill',
             })
-            console.log("Result is =>",result)
+            //console.log("Result is =>",result)
             if(result){
                 user.avatar.public_id = result.public_id,
                 user.avatar.secure_url = result.secure_url

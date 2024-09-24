@@ -154,7 +154,8 @@ const addLectureToCourseById = async(req,res,next) => {
         if(req.file){
             try{
                 const result =await cloudinary.v2.uploader.upload(req.file.path,{
-                    folder: "lms"
+                    folder: "lms",
+                    resource_type: "video"
                 })
 
                 if(result){
@@ -184,6 +185,7 @@ const addLectureToCourseById = async(req,res,next) => {
 }
 
 const deleteLecture = async(req,res,next) => {
+    //console.log("Request Params:", req.params);
     try{
         const {id,lectureId} = req.params
 
