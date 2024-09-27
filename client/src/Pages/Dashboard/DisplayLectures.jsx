@@ -20,12 +20,12 @@ function DisplayLectures() {
     }
 
     useEffect(() => {
-        console.log(state)
+        //console.log(state)
         if(!state.state){
             navigate("/courses")
         }
        const res = dispatch(getCourseLectures(state.state._id))
-       console.log(res)
+    //    console.log(res)
     },[])
   return (
     <Homelayout>
@@ -34,7 +34,7 @@ function DisplayLectures() {
                 Course Name: {state?.state?.title}
             </div>
 
-            {lectures && lectures.length > 0 && <div className="flex justify-center gap-10 w-full">
+            {(lectures && lectures.length > 0)? (<div className="flex justify-center gap-10 w-full">
                 {/* left section for playing videos and displaying course details to admin */}
                 <div className="space-y-5 w-[28rem] p-2 rounded-lg shadow-[0_0_10px_black]">
                     <video 
@@ -94,7 +94,13 @@ function DisplayLectures() {
                         })
                     }
                 </ul>
-            </div>}
+            </div>):(
+                role === "ADMIN" &&(
+                    <button onClick={() => navigate("/course/addlecture",{state:{...state}})} className="btn btn-primary px-2 py-1 rounded-md font-semibold text-sm">
+                        Add new lecture
+                    </button>
+                )
+            )}
         </div>
     </Homelayout>
   )

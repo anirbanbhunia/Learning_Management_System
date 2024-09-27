@@ -131,6 +131,9 @@ const removeCourse = async(req,res,next) => {
 }
 
 const addLectureToCourseById = async(req,res,next) => {
+    //console.log("Received File:", req.file); // Log file to see if it's received
+    //console.log("Request Body:", req.body); // Log body data to check title, description
+
     try{
         const {title,description} = req.body
         const {id} = req.params
@@ -153,7 +156,7 @@ const addLectureToCourseById = async(req,res,next) => {
 
         if(req.file){
             try{
-                const result =await cloudinary.v2.uploader.upload(req.file.path,{
+                const result = await cloudinary.v2.uploader.upload(req.file.path,{
                     folder: "lms",
                     resource_type: "video"
                 })

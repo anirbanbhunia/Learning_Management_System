@@ -11,6 +11,7 @@ const upload = multer({
         }
     }),
     fileFilter: (_req, file, cb) => {
+       // console.log("Incoming file:", file); // Log the file object
         let ext = path.extname(file.originalname)
 
         if(

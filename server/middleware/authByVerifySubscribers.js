@@ -7,7 +7,7 @@ const verifySubscribers = asyncHandler(async(req,res,next) => {
     const role = req.user.role
 
     const user = await userModel.findById(req.user.id)
-    console.log("this is database user => ", user)
+    //console.log("this is database user => ", user)
 
     if(user.role !== 'ADMIN' && user.subscription.status !== 'active'){
         return next(new AppError("Please subscribe to access this course!",403))
