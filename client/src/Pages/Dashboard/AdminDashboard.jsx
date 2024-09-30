@@ -3,10 +3,9 @@ import Homelayout from "../../Layouts/Homelayout"
 import {ArcElement,BarElement,CategoryScale,Chart as ChartJs,Legend,LinearScale,Title,Tooltip} from "chart.js"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { getAllCourses } from "../../../../server/controller/course.controller"
 import { getPaymentsRecord } from "../../Redux/Slices/RazorpaySlice"
 import { getStatData } from "../../Redux/Slices/StatSlice"
-import { deleteCourse } from "../../Redux/Slices/CourseSlice"
+import { deleteCourse, getAllCoursesThunk } from "../../Redux/Slices/CourseSlice"
 
 ChartJs.register(ArcElement,BarElement,CategoryScale,Legend,LinearScale,Title,Tooltip)
 
@@ -59,7 +58,7 @@ function AdminDashboard() {
     useEffect(() => {
         (
             async() => {
-                await dispatch(getAllCourses())
+                await dispatch(getAllCoursesThunk())
                 await dispatch(getPaymentsRecord())
                 await dispatch(getStatData())
             }
