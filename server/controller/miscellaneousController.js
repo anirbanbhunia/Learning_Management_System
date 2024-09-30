@@ -1,4 +1,5 @@
 import asyncHandler from "../middleware/asyncHandlerMiddleware.js";
+import userModel from "../models/userModel.js";
 import AppError from "../utils/error.util.js";
 import sendEmail from "../utils/sendMail.util.js";
 
@@ -18,7 +19,7 @@ export const contactUs = asyncHandler(async (req, res, next) => {
       // Await the send email
       await sendEmail(process.env.CONTACT_US_EMAIL, subject, textMessage);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return next(new AppError(error.message, 400));
     }
   
@@ -27,3 +28,22 @@ export const contactUs = asyncHandler(async (req, res, next) => {
       message: 'Your request has been submitted successfully',
     });
   });
+
+  export const userStats = async(req,res,next) => {
+    try{
+      const allUserCount = await userModel.countDocuments()
+
+      const subscribeUserCount = await userModel.countDocuments({
+        "subscription.status":"active"
+      })
+
+      res.status(200).json({
+        success: true,
+        message: 'All registered users count',
+        allUserCount,
+        subscribeUserCount
+      })
+    }catch(err){
+      return next(new AppError(err.message, 400));
+    }
+  }
