@@ -29,7 +29,7 @@ export const deleteCourse = createAsyncThunk("/course/delete", async(id) => {
             success: "Courses deleted successfully",
             error: "Failed to delete the courses"
         })
-        return (await res).data.courses
+        return (await res).data
     }catch(err){
         toast.error(err?.response?.data?.message)
     }
