@@ -19,6 +19,9 @@ import CheckoutFail from './Pages/Payment/CheckoutFail.jsx'
 import DisplayLectures from './Pages/Dashboard/DisplayLectures.jsx'
 import AddLecture from './Pages/Dashboard/AddLecture.jsx'
 import AdminDashboard from './Pages/Dashboard/AdminDashboard.jsx'
+import ChangePassword from './Pages/Password/ChangePassword.jsx'
+import ForgetPassword from './Pages/Password/ForgetPassword.jsx'
+import ResetPassword from './Pages/Password/ResetPassword.jsx'
 
 
 function App() {
@@ -32,6 +35,8 @@ function App() {
         <Route path='/about' element={<AboutUs/>}/>
         <Route path='/denied' element={<Denied/>}/>
         <Route path='/course/description' element={<CourseDescription/>}/>
+        <Route path='/forgetpassword' element={<ForgetPassword/>}/>
+        <Route path='/reset/:resetToken' element={<ResetPassword/>}/>
 
         <Route element={<RecureAuth allowedRole={["ADMIN"]}/>}>
           <Route path='/course/create' element={<CreateCourse/>}/>
@@ -46,6 +51,7 @@ function App() {
           <Route path='/checkout/success' element={<CheckoutSuccess/>}/>
           <Route path='/checkout/fail' element={<CheckoutFail/>}/>
           <Route path='/course/displaylectures' element={<DisplayLectures/>}/>
+          <Route path='/changepassword' element={<ChangePassword/>}/>
         </Route>
 
         <Route path='/signup' element={<SignUp/>}/>

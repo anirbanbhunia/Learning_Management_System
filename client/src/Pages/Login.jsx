@@ -80,6 +80,12 @@ function Login() {
                     Login
                 </button>
 
+                <Link to={"/forgetpassword"}>
+                    <p className="text-center link text-accent cursor-pointer">
+                    Forget Password
+                    </p>
+                </Link>
+
                 <p className="text-center">
                     Donot have an account ? <Link className="link text-accent cursor-pointer" to={"/signup"}>Signup</Link>
                 </p>
